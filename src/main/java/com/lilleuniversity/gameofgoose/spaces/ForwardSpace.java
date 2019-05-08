@@ -1,21 +1,19 @@
-package PackageJeuOie;
-
 /* Ce type de case fait avancer le joueur d'un nombre de cases prédéfini */
-public class CaseAvancer extends Case
+public class ForwardSpace extends Space
 {
 	/* nbCase : le nombre de case(s) dont le joueur avance */
-	private int nbCases;
+	private int spacesNumber;
 	
 	/* Constructeur de la classe CaseAvancer */
-	public CaseAvancer(int abs, int ord, int n)
+	public ForwardSpace(int abs, int ord, int spacesNumber)
 	{
 		super(abs, ord);
-		nbCases = n;
+		this.spacesNumber = spacesNumber;
 	}
 
 	/* Methode qui réalise l'action de la case lorsque le joueur arrive sur la case */
-	public void action(Joueur unJoueur)
+	public void action(Player player)
 	{
-		unJoueur.avancer(nbCases);
+		player.advance(spacesNumber);
 	}
 }

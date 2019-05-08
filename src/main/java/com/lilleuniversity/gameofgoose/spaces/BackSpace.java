@@ -1,21 +1,19 @@
-package PackageJeuOie;
-
 /* Ce type de case fait reculer le joueur d'un nombre de cases prédéfini */
-public class CaseReculer extends Case
+public class BackSpace extends Space
 {
 	/* nbCase : le nombre de case(s) dont le joueur recule */
-	private int nbCases;
+	private int spacesNumber;
 	
 	/* Constructeur de la classe CaseReculer */
-	public CaseReculer(int abs, int ord, int n)
+	public BackSpace(int x, int y, int spacesNumber)
 	{
-		super(abs, ord);
-		nbCases = n;
+		super(x, y);
+		this.spacesNumber = spacesNumber;
 	}
 	
 	/* Methode qui réalise l'action de la case lorsque le joueur arrive sur la case */
-	public void action(Joueur unJoueur)
+	public void action(Player player)
 	{
-		unJoueur.reculer(nbCases);
+		player.moveBack(spacesNumber);
 	}
 }

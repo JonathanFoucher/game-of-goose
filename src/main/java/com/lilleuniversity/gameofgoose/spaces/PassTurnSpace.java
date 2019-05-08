@@ -1,17 +1,15 @@
-package PackageJeuOie;
-
 /* Ce type de case fait passer son tour au joueur pour le prochain tour */
-public class CasePasseTour extends Case
+public class PassTurnSpace extends Space
 {
 	/* Constructeur de la classe CasePasseTour */
-	public CasePasseTour(int abs, int ord)
+	public PassTurnSpace(int x, int y)
 	{
-		super(abs, ord);
+		super(x, y);
 	}
 	
 	/* Methode qui réalise l'action de la case lorsque le joueur arrive sur la case */
-	public void action(Joueur unJoueur)
+	public void action(Player player)
 	{
-		unJoueur.passeSonTour();
+		player.passTurn();
 	}
 }

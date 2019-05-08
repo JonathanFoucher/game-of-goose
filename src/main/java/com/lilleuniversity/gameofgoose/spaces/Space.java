@@ -1,7 +1,5 @@
-package PackageJeuOie;
-
 /* Ce type de case ne réalise aucune action sur le joueur */
-public class Case extends Object
+public class Space
 {
 	/*
 		x : l'abscisse de la case sur le plateau par rapport à la case 0
@@ -10,14 +8,14 @@ public class Case extends Object
 	private int x, y;
 	
 	/* Constructeur de la classe Case */
-	public Case(int abs, int ord)
+	public Space(int x, int y)
 	{
-		x = abs;
-		y = ord;
+		this.x = x;
+		this.y = y;
 	}
 	
 	/* Methode qui réalise l'action de la case lorsque le joueur arrive sur la case */
-	public void action(Joueur unJoueur){}
+	public void action(Player player){}
 	
 	/* Methode qui renvoie l'abscisse du joueur */
 	public int getX()
