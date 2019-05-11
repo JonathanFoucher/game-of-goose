@@ -1,3 +1,7 @@
+package com.lilleuniversity.gameofgoose;
+
+import com.lilleuniversity.gameofgoose.game.impl.Game;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -34,8 +38,7 @@ import javax.swing.Timer;
  * Represents the game application window
  *
  */
-public class ApplicationWindow extends JFrame 
-{
+public class GameWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	/*
@@ -109,8 +112,7 @@ public class ApplicationWindow extends JFrame
 	private int[] yPiece;
 	
 	/* Constructeur de la classe Fenetre */
-	public ApplicationWindow()
-	{
+	public GameWindow() {
 		/* Les paramètres de la fenêtre */
 		setTitle("Game configuration");
 		setSize(250, (110 + 55 * maxPlayers));
@@ -138,15 +140,13 @@ public class ApplicationWindow extends JFrame
 		/* On créé les labels et textbox pour les noms des joueurs */
 		playersTextBoxes = new JTextField[maxPlayers];
 		playersLabels = new JLabel[maxPlayers];
-		for(int i = 0; i < playersTextBoxes.length; i++)
-		{
+		for(int i = 0; i < playersTextBoxes.length; i++) {
 			playersLabels[i] = new JLabel("Player " + (i + 1) + " : ");
 			playersTextBoxes[i] = new JTextField("");
 			playersTextBoxes[i].setFont(new Font("Arial", Font.BOLD, 12));
 			playersTextBoxes[i].setPreferredSize(new Dimension(80, 20));
 			playersTextBoxes[i].setForeground(playersColors[i]);
-			if(i > 1) 
-			{
+			if(i > 1) {
 				playersTextBoxes[i].setEnabled(false);
 				playersLabels[i].setForeground(Color.LIGHT_GRAY);
 			}
@@ -173,8 +173,7 @@ public class ApplicationWindow extends JFrame
 		
 		gbc.gridy+=1;
 		gbc.gridwidth = 2;
-		for(int i = 1; i < maxPlayers + 1; i++)
-		{
+		for(int i = 1; i < maxPlayers + 1; i++) {
 			gbc.gridx = 0;
 			backgroundPanel.add(playersLabels[i-1], gbc);
 			gbc.gridx = 2;
@@ -210,46 +209,33 @@ public class ApplicationWindow extends JFrame
 	}
 	
 	/* Méthode qui gère le déplacement des pions (variation abscisse/ordonnée avec un rappel sur le timer pour donner l'illusion d'un mouvement constant) */
-	public void createTimer()
-	{
-		AbstractAction listener = new AbstractAction()
-		{
+	public void createTimer() {
+		AbstractAction listener = new AbstractAction() {
             private static final long serialVersionUID = 1L;
 
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				timer.stop();
 				int n = (actionCounter - 1)%playersNumber;
 				/* Si la position du pion n'est pas égale à la position du joueur, on déplace le pion vers la position joueur et on relance le timer
 				   en boucle jusqu'à ce que la position soit la même */
-				if(xPiece[n] < xPlayer[n])
-				{
+				if(xPiece[n] < xPlayer[n]) {
 					xPiece[n]+=2;
 					gameBoardLabel.repaint();
 					timer.start();
-				}
-				else if(yPiece[n] < yPlayer[n])
-				{
+				} else if(yPiece[n] < yPlayer[n]) {
 					yPiece[n]+=2;
 					gameBoardLabel.repaint();
 					timer.start();
-				}
-				else if(xPiece[n] > xPlayer[n])
-				{
+				} else if(xPiece[n] > xPlayer[n]) {
 					xPiece[n]-=2;
 					gameBoardLabel.repaint();
 					timer.start();
-				}
-				else if(yPiece[n] > yPlayer[n])
-				{
+				} else if(yPiece[n] > yPlayer[n]) {
 					yPiece[n]-=2;
 					gameBoardLabel.repaint();
 					timer.start();
-				}
-				else
-				{
-					if(!game.isGameEnded())
-					{
+				} else {
+					if(!game.isGameEnded()) {
 						actionCounter++;
 						
 						if(game.isPassTurn((actionCounter - 1)%playersNumber)) nextPlayer(false);
@@ -262,18 +248,15 @@ public class ApplicationWindow extends JFrame
 	}
 	
 	/* Action qui s'applique lorsque l'utilisateur change la valeur de la combobox du nombre de joueurs (fenêtre de configuration) */
-	class PlayersComboBoxListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent e)
-		{
+	class PlayersComboBoxListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
 			/* Selon le nombre sélectionné dans la combobox, on grise/dégrise les labels et textbox des noms des joueurs */
-			for(int i = 2; i < (Integer)playersComboBox.getSelectedItem(); i++)
-			{
+			for(int i = 2; i < (Integer)playersComboBox.getSelectedItem(); i++) {
 				playersTextBoxes[i].setEnabled(true);
 				playersLabels[i].setForeground(Color.BLACK);
 			}
-			for(int i = (Integer)playersComboBox.getSelectedItem(); i < playersTextBoxes.length; i++)
-			{
+
+			for(int i = (Integer)playersComboBox.getSelectedItem(); i < playersTextBoxes.length; i++) {
 				playersTextBoxes[i].setEnabled(false);
 				playersLabels[i].setForeground(Color.LIGHT_GRAY);
 			}
@@ -281,24 +264,18 @@ public class ApplicationWindow extends JFrame
 	}
 	
 	/* Action qui s'applique lorsque l'utilisateur appuie sur le bouton "Lancer" */
-	class LaunchButtonListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent e)
-		{
+	class LaunchButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
 			/* On commence par vérifier que des noms ont été entrés dans les textbox
 			   Si ce n'est pas le cas, on affiche un message d'erreur sinon on forme la fenêtre de jeu */
 			boolean namesTest = true;
-			for(int i = 0; i < (Integer)playersComboBox.getSelectedItem(); i++)
-			{
+			for(int i = 0; i < (Integer)playersComboBox.getSelectedItem(); i++) {
 				if(playersTextBoxes[i].getText().length() == 0) namesTest = false;
 			}
 			
-			if(!namesTest)
-			{
+			if(!namesTest) {
 				JOptionPane.showMessageDialog(null, "Error, a player's name cannot be empty !", "Error", JOptionPane.ERROR_MESSAGE);
-			}
-			else
-			{
+			} else {
 				/* Paramètres de la fenêtre et du panneau de fond */
 				isGameStarted = true;
 				int width = 1050;
@@ -317,8 +294,7 @@ public class ApplicationWindow extends JFrame
 				gameBoard.setPreferredSize(new Dimension(width, 600));
 				
 				/* On définit les paramètres des panneaux de scores */
-				for(int i = 0; i < scoresPanels.length; i++)
-				{
+				for(int i = 0; i < scoresPanels.length; i++) {
 					scoresPanels[i] = new JPanel();
 					if(i < 2) scoresPanels[i].setLayout(new FlowLayout());
 					else if (i == 2) scoresPanels[i].setLayout(new BorderLayout());
@@ -349,20 +325,16 @@ public class ApplicationWindow extends JFrame
 				
 				/* On ajoute l'image du sélecteur */
 				scoresPanels[4].add(Box.createRigidArea(new Dimension(20, 35)));
-				try
-				{
+				try {
 					Image img = ImageIO.read(getClass().getClassLoader().getResource("images/selecteur.png"));
 					playerSelectorLabel = new JLabel(new ImageIcon(img));
 					scoresPanels[4].add(playerSelectorLabel);
-				}
-				catch (Exception ex)
-				{
+				} catch (Exception ex) {
 					System.out.println(ex);
 				}
 				
 				/* On paramètre et ajoute les labels de score des joueurs (noms + scores) */
-				for(int i = 0; i < playersNumber; i++)
-				{
+				for(int i = 0; i < playersNumber; i++) {
 					playersLabel[i] = new JLabel(playersTextBoxes[i].getText() + " : 0");
 					playersLabel[i].setForeground(playersColors[i]);
 					playersNames[i] = playersTextBoxes[i].getText();
@@ -371,8 +343,7 @@ public class ApplicationWindow extends JFrame
 				scoresPanels[5].add(Box.createRigidArea(new Dimension(0,10)));
 				scoresPanels[5].add(turnLabel);
 				scoresPanels[5].add(Box.createRigidArea(new Dimension(0,10)));
-				for(int i = 0; i < playersNumber; i++)
-				{
+				for(int i = 0; i < playersNumber; i++) {
 					scoresPanels[5].add(playersLabel[i]);
 					scoresPanels[5].add(Box.createRigidArea(new Dimension(0,5)));
 				}
@@ -380,13 +351,10 @@ public class ApplicationWindow extends JFrame
 				scoresPanels[2].add(messageLabel, BorderLayout.CENTER);
 				
 				/* On ajoute une image de dé sur le bouton "Jouer" */
-				try
-				{
+				try {
 					Image img = ImageIO.read(getClass().getResource("images/dice.png"));
 					playButton.setIcon(new ImageIcon(img));
-				}
-				catch (Exception ex)
-				{
+				} catch (Exception ex) {
 					System.out.println(ex);
 				}
 				
@@ -401,14 +369,11 @@ public class ApplicationWindow extends JFrame
 				scoresPanels[3].add(quitButton);
 				
 				/* On ajoute l'image du plateau */
-				try
-				{
+				try {
 					Image img = ImageIO.read(getClass().getResource("images/plateau.png"));
 					gameBoardLabel = new Board(new ImageIcon(img));
 					gameBoard.add(gameBoardLabel);
-				}
-				catch (Exception ex)
-				{
+				} catch (Exception ex) {
 					System.out.println(ex);
 				}
 				
@@ -422,8 +387,7 @@ public class ApplicationWindow extends JFrame
 				xPlayer[1] = 127; yPlayer[1] = 55;
 				xPlayer[2] = 103; yPlayer[2] = 79;
 				xPlayer[3] = 127; yPlayer[3] = 79;
-				for(int i = 0; i < playersNumber; i++)
-				{
+				for(int i = 0; i < playersNumber; i++) {
 					xPiece[i] = xPlayer[i];
 					yPiece[i] = yPlayer[i];
 				}
@@ -442,20 +406,18 @@ public class ApplicationWindow extends JFrame
 	}
 	
 	/* Action qui s'applique lorsque l'utilisateur appuie sur le bouton "Jouer" */
-	class PlayButtonListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent e) 
-		{
+	class PlayButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
 			nextPlayer(true);
 		}
 	}
 	
 	/* Méthode qui gère le tour d'un joueur
 	   Cette méthode peut être appelée par un appuie sur un joueur (paramètre à true) ou si un joueur doit passer son tour (paramètre à false) */
-	public void nextPlayer(boolean nouvelleAction)
-	{
+	public void nextPlayer(boolean nouvelleAction) {
 		/* Si un joueur passe son tour on ne ré-initiale pas le message */
-		if(nouvelleAction) message = "";
+		if(nouvelleAction)
+			message = "";
 		
 		int playerNumber = (actionCounter-1)%playersNumber;
 		int m = (actionCounter)%playersNumber;
@@ -485,8 +447,7 @@ public class ApplicationWindow extends JFrame
 		timer.start();
 		
 		/* Si la partie n'est pas finie, on fait avancer le sélecteur au joueur suivant pour indiquer que c'est à son tour de jouer */
-		if(!game.isGameEnded())
-		{
+		if(!game.isGameEnded()) {
 			scoresPanels[4].removeAll();
 			scoresPanels[4].add(Box.createRigidArea(new Dimension(20, (35 + m*21))));
 			scoresPanels[4].add(playerSelectorLabel);
@@ -495,11 +456,9 @@ public class ApplicationWindow extends JFrame
 	}
 	
 	/* Action qui s'applique lorsque l'utilisateur appuie sur le bouton "Quitter" */
-	class QuitButtonListener implements ActionListener
-	{
+	class QuitButtonListener implements ActionListener {
 		/* Une messagebox apparaît pour demander la confirmation à l'utilisateur, si il confirme, l'application se ferme */
-		public void actionPerformed(ActionEvent e)
-		{
+		public void actionPerformed(ActionEvent e) {
 			int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to quit the app ?", "Confirmation", JOptionPane.YES_NO_OPTION);
 			if(choice == JOptionPane.YES_OPTION)
 				System.exit(0);
@@ -507,10 +466,8 @@ public class ApplicationWindow extends JFrame
 	}
 	
 	/* On retrace les pions lorsque la fenêtre reprend le focus (pour corriger un bug où les pions disparaissent lorsque la fenêtre perd le focus) */
-	class AppWindowFocusListener implements WindowFocusListener
-	{
-		public void windowGainedFocus(WindowEvent e)
-		{
+	class AppWindowFocusListener implements WindowFocusListener {
+		public void windowGainedFocus(WindowEvent e) {
 			if(isGameStarted) gameBoardLabel.repaint();
 		}
 		
@@ -519,22 +476,17 @@ public class ApplicationWindow extends JFrame
 	
 	/* La classe plateau permet de gérer les déplacements des pions sur le plateau
 	   Un pion est représenté par un carré de la couleur du joueur, entouré par un encadré noir */
-	class Board extends JLabel
-	{
+	class Board extends JLabel {
 		private static final long serialVersionUID = 1L;
 
-		public Board(ImageIcon img)
-		{
+		public Board(ImageIcon img) {
 			super(img);
 		}
 		
-		public void paintComponent(Graphics g)
-		{
-			if(isGameStarted)
-			{
+		public void paintComponent(Graphics g) {
+			if(isGameStarted) {
 				super.paintComponent(g);
-				for(int i = 0; i < playersNumber; i++)
-				{
+				for(int i = 0; i < playersNumber; i++) {
 					g.setColor(Color.BLACK);
 					g.fillRect(xPiece[i], yPiece[i], 15, 15);
 					g.setColor(playersColors[i]);
