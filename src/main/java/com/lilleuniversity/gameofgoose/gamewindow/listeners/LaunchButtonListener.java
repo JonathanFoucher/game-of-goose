@@ -47,6 +47,7 @@ public class LaunchButtonListener implements ActionListener {
         if(!namesTest) {
             JOptionPane.showMessageDialog(null, "Error, a player's name cannot be empty !", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+        	gameWindow.isGameStarted = true;
             int width = 1050;
             int height = 779;
             gameWindow.playersNumber = (Integer)gameWindow.playersComboBox.getSelectedItem();

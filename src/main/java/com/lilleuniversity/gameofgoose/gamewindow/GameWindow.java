@@ -84,7 +84,7 @@ public class GameWindow extends JFrame {
 	public JLabel messageLabel = new JLabel("<html><center>The game is starting<br>Click on the dice to make a roll</center></html>", JLabel.CENTER);
 	private String message = new String("");
 	private int actionCounter = 1;
-	boolean isGameStarted = false;
+	public boolean isGameStarted = false;
 	public JLabel playerSelectorLabel;
 	
 	/*

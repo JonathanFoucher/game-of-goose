@@ -19,6 +19,7 @@ public class Board extends JLabel {
     }
 
     public void paintComponent(Graphics g) {
+    	
         if(gameWindow.isGameStarted) {
             super.paintComponent(g);
             for(int i = 0; i < gameWindow.playersNumber; i++) {
