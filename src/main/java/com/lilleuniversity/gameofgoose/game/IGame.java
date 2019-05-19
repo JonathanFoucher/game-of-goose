@@ -8,8 +8,8 @@ public interface IGame {
 	
 	/* Methode qui initialise les cases de la partie 
 	   Les cases du plateau sont de taille 50 pixels
-	   La case 0 reprÃ©sente l'origine (0, 0) et on dÃ©duite la postion des cases suivantes en dÃ©calant soit en abscisse soit en ordonnÃ©e de 50
-	   Par exemple la case 1 Ã©tant Ã  sa droite, elle se situe en (50, 0) */
+	   La case 0 représente l'origine (0, 0) et on déduite la postion des cases suivantes en décalant soit en abscisse soit en ordonnée de 50
+	   Par exemple la case 1 étant à sa droite, elle se situe en (50, 0) */
 	public void initSpaces();
 
 	/* Methode qui appelle l'action du joueur actuel */
@@ -21,7 +21,7 @@ public interface IGame {
 	/* Methode qui permet de faire remonter l'abscisse du joueur dans l'interface */
 	public int getPlayerX(int n);
 	
-	/* Methode qui permet de faire remonter l'ordonnÃ©e du joueur dans l'interface */
+	/* Methode qui permet de faire remonter l'ordonnée du joueur dans l'interface */
 	public int getPlayerY(int n);
 	
 	/* Methode qui permet de faire remonter le message du joueur dans l'interface */
@@ -30,6 +30,6 @@ public interface IGame {
 	/* Methode qui permet de faire remonter si le joueur passe son tour dans l'interface */
 	public boolean isPassTurn(int n);
 	
-	/* Methode qui indique Ã  l'interface si la partie est finie */
+	/* Methode qui indique à l'interface si la partie est finie */
 	public boolean isGameEnded();
 }

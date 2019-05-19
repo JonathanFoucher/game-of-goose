@@ -1,39 +1,39 @@
 package com.lilleuniversity.gameofgoose.player;
 
 public interface IPlayer {	
-	/* MÃ©thode qui simule l'action lorsque le joueur joue */
+	/* Méthode qui simule l'action lorsque le joueur joue */
 	public int joue();
 	
-	/* MÃ©thode qui simule le lancÃ© de dÃ© */
+	/* Méthode qui simule le lancé de dé */
 	public int rollDice();
 	
-	/* MÃ©thode qui fait avancer le joueur de n cases */
+	/* Méthode qui fait avancer le joueur de n cases */
 	public void advance(int numberSpaces);
 	
-	/* MÃ©thode qui fait reculer le joueur de n cases */
+	/* Méthode qui fait reculer le joueur de n cases */
 	public void moveBack(int numberSpaces);
 	
-	/* MÃ©thode qui change la variable passeTour pour faire passer son tour au joueur au tour suivant */
+	/* Méthode qui change la variable passeTour pour faire passer son tour au joueur au tour suivant */
 	public void passTurn();
 	
-	/* MÃ©thode qui tÃ©lÃ©porte le joueur sur la case envoyÃ©e en paramÃ¨tre */
+	/* Méthode qui téléporte le joueur sur la case envoyée en paramètre */
 	public void teleport(int targetPosition);
 	
-	/* MÃ©thode test la victoire du joueur */
+	/* Méthode test la victoire du joueur */
 	public boolean hasWon();
 	
-	/* MÃ©thode qui renvoie le numÃ©ro de la case oÃ¹ se trouve le joueur */
+	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
 	public int getPosition();
 	
-	/* MÃ©thode qui renvoie le numÃ©ro de la case oÃ¹ se trouve le joueur */
+	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
 	public int getXInit();
 	
-	/* MÃ©thode qui renvoie le numÃ©ro de la case oÃ¹ se trouve le joueur */
+	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
 	public int getYInit();
 	
-	/* MÃ©thode qui renvoie le numÃ©ro de la case oÃ¹ se trouve le joueur */
+	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
 	public String getTurnMessage();
 	
-	/* MÃ©thode qui tÃ©lÃ©porte le joueur sur la case envoyÃ©e en paramÃ¨tre */
+	/* Méthode qui téléporte le joueur sur la case envoyée en paramètre */
 	public boolean isPassTurn();
 }

@@ -2,13 +2,17 @@ package com.lilleuniversity.gameofgoose.game.impl;
 
 import com.lilleuniversity.gameofgoose.game.IGame;
 import com.lilleuniversity.gameofgoose.player.impl.Player;
+import com.lilleuniversity.gameofgoose.space.impl.BackSpace;
+import com.lilleuniversity.gameofgoose.space.impl.ForwardSpace;
+import com.lilleuniversity.gameofgoose.space.impl.PassTurnSpace;
 import com.lilleuniversity.gameofgoose.space.impl.Space;
+import com.lilleuniversity.gameofgoose.space.impl.TeleportCase;
 
 import java.awt.Color;
 
 public class Game implements IGame {
 	/*
-		fini : le boolÃ©en qui indique si la partie est finie ou non
+		fini : le booléen qui indique si la partie est finie ou non
 		joueurs : le tableau contenant les joueurs
 		cases : le tableau contenant les cases du jeu
 		k : le nombre de joueurs
@@ -37,8 +41,8 @@ public class Game implements IGame {
 	
 	/* Methode qui initialise les cases de la partie 
 	   Les cases du plateau sont de taille 50 pixels
-	   La case 0 reprÃ©sente l'origine (0, 0) et on dÃ©duite la postion des cases suivantes en dÃ©calant soit en abscisse soit en ordonnÃ©e de 50
-	   Par exemple la case 1 Ã©tant Ã  sa droite, elle se situe en (50, 0) */
+	   La case 0 représente l'origine (0, 0) et on déduite la postion des cases suivantes en décalant soit en abscisse soit en ordonnée de 50
+	   Par exemple la case 1 étant à sa droite, elle se situe en (50, 0) */
 	public void initSpaces() {
 		spaces = new Space[spacesNumber];
 		
@@ -124,13 +128,13 @@ public class Game implements IGame {
 	
 	/* Methode qui permet de faire remonter l'abscisse du joueur dans l'interface */
 	public int getPlayerX(int n) {
-		/* Pour dÃ©terminer la nouvelle abscisse d'un joueur, il suffit d'additionner son abscisse initiale avec l'abscisse de la case */
+		/* Pour déterminer la nouvelle abscisse d'un joueur, il suffit d'additionner son abscisse initiale avec l'abscisse de la case */
 		return (players[n].getXInit() + spaces[players[n].getPosition()].getX());
 	}
 	
-	/* Methode qui permet de faire remonter l'ordonnÃ©e du joueur dans l'interface */
+	/* Methode qui permet de faire remonter l'ordonnée du joueur dans l'interface */
 	public int getPlayerY(int n) {
-		/* Pour dÃ©terminer la nouvelle ordonnÃ©e d'un joueur, il suffit d'additionner son ordonnÃ©e initiale avec l'ordonnÃ©e de la case */
+		/* Pour déterminer la nouvelle ordonnée d'un joueur, il suffit d'additionner son ordonnée initiale avec l'ordonnée de la case */
 		return (players[n].getYInit() + spaces[players[n].getPosition()].getY());
 	}
 	
@@ -144,7 +148,7 @@ public class Game implements IGame {
 		return players[n].isPassTurn();
 	}
 	
-	/* Methode qui indique Ã  l'interface si la partie est finie */
+	/* Methode qui indique à l'interface si la partie est finie */
 	public boolean isGameEnded() {
 		return isGameEnded;
 	}

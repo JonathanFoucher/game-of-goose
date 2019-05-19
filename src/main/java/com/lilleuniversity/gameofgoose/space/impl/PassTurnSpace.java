@@ -9,7 +9,7 @@ public class PassTurnSpace extends Space {
 		super(x, y);
 	}
 	
-	/* Methode qui rÃ©alise l'action de la case lorsque le joueur arrive sur la case */
+	/* Methode qui réalise l'action de la case lorsque le joueur arrive sur la case */
 	public void action(Player player) {
 		player.passTurn();
 	}

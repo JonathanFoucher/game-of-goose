@@ -2,7 +2,7 @@ package com.lilleuniversity.gameofgoose.space.impl;
 
 import com.lilleuniversity.gameofgoose.player.impl.Player;
 
-/* Ce type de case fait reculer le joueur d'un nombre de cases prÃ©dÃ©fini */
+/* Ce type de case fait reculer le joueur d'un nombre de cases prédéfini */
 public class BackSpace extends Space {
 	/* nbCase : le nombre de case(s) dont le joueur recule */
 	private int spacesNumber;
@@ -13,7 +13,7 @@ public class BackSpace extends Space {
 		this.spacesNumber = spacesNumber;
 	}
 	
-	/* Methode qui rÃ©alise l'action de la case lorsque le joueur arrive sur la case */
+	/* Methode qui réalise l'action de la case lorsque le joueur arrive sur la case */
 	public void action(Player player) {
 		player.moveBack(spacesNumber);
 	}

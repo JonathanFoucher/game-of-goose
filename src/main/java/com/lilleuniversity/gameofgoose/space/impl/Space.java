@@ -3,11 +3,11 @@ package com.lilleuniversity.gameofgoose.space.impl;
 import com.lilleuniversity.gameofgoose.space.ISpace;
 import com.lilleuniversity.gameofgoose.player.impl.Player;
 
-/* Ce type de case ne réalise aucune action sur le joueur */
+/* Ce type de case ne r�alise aucune action sur le joueur */
 public class Space implements ISpace {
 	/*
-		x : l'abscisse de la case sur le plateau par rapport à la case 0
-		y : l'ordonné de la case sur le plateau par rapport à la case 0
+		x : l'abscisse de la case sur le plateau par rapport � la case 0
+		y : l'ordonn� de la case sur le plateau par rapport � la case 0
 	*/
 	private int x, y;
 	
@@ -17,7 +17,7 @@ public class Space implements ISpace {
 		this.y = y;
 	}
 
-	/* Methode qui rÃ©alise l'action de la case lorsque le joueur arrive sur la case */
+	/* Methode qui réalise l'action de la case lorsque le joueur arrive sur la case */
 	public void action(Player player) {}
 	
 	/* Methode qui renvoie l'abscisse du joueur */
@@ -25,7 +25,7 @@ public class Space implements ISpace {
 		return this.x;
 	}
 	
-	/* Methode qui renvoie l'ordonnÃ©e du joueur */
+	/* Methode qui renvoie l'ordonnée du joueur */
 	public int getY() {
 		return this.y;
 	}

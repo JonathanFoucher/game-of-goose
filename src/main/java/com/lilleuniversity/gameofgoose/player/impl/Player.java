@@ -8,14 +8,14 @@ import java.awt.Color;
 public class Player implements IPlayer {
 	/*
 		nom : le nom du joueur
-	    nomColor : chaÃ®ne de caractÃ¨re contenant le nom du joueur mais encadrÃ© par des balises HTML pour mettre son nom en couleur 
-	    dans lâ€™interface du jeu
-	    passeTour : boolÃ©en qui indique si le joueur passe son tour ou si il peut jouer
-		position : le numÃ©ro de la case sur laquelle se trouve le joueur
+	    nomColor : chaîne de caractère contenant le nom du joueur mais encadré par des balises HTML pour mettre son nom en couleur 
+	    dans l’interface du jeu
+	    passeTour : booléen qui indique si le joueur passe son tour ou si il peut jouer
+		position : le numéro de la case sur laquelle se trouve le joueur
 		xInit : l'abscisse initiale du pion du joueur sur le plateau
-		yInit : lâ€™ordonnÃ© initiale du pion du joueur sur le plateau
-		derniereCase : le numÃ©ro de la derniÃ¨re case du jeu (case de victoire)
-		messageTour : chaÃ®ne de caractÃ¨res contenant le message Ã  afficher pour le joueur Ã  la fin du tour
+		yInit : l’ordonné initiale du pion du joueur sur le plateau
+		derniereCase : le numéro de la dernière case du jeu (case de victoire)
+		messageTour : chaîne de caractères contenant le message à afficher pour le joueur à la fin du tour
 	*/
 	private String name, coloredName, turnMessage = new String("");
 	private boolean isPassTurn;
@@ -32,11 +32,11 @@ public class Player implements IPlayer {
 		this.yInit = yInit;
 	}
 	
-	/* MÃ©thode qui simule l'action lorsque le joueur joue */
+	/* Méthode qui simule l'action lorsque le joueur joue */
 	public int joue() {
 		int result = 0;
 		
-		/* Si le joueur ne passe pas son tour, il lance le dÃ© sinon on remet Ã  false la variable passeTour pour le prochain tour */
+		/* Si le joueur ne passe pas son tour, il lance le dé sinon on remet à false la variable passeTour pour le prochain tour */
 		if(isPassTurn == false) {
 			advance(rollDice());
 			result = position;
@@ -49,7 +49,7 @@ public class Player implements IPlayer {
 		return result;
 	}
 	
-	/* MÃ©thode qui simule le lancÃ© de dÃ© */
+	/* Méthode qui simule le lancé de dé */
 	public int rollDice() {
 		Random random = new Random();
 		int randomResult = 1 + random.nextInt(6);
@@ -58,9 +58,9 @@ public class Player implements IPlayer {
 		return randomResult;
 	}
 	
-	/* MÃ©thode qui fait avancer le joueur de n cases */
+	/* Méthode qui fait avancer le joueur de n cases */
 	public void advance(int numberSpaces) {
-		/* On vÃ©rifie que le joueur n'avance pas plus loin que la derniÃ¨re case, si c'est le cas il recule alors du nombre de pas restants */
+		/* On vérifie que le joueur n'avance pas plus loin que la dernière case, si c'est le cas il recule alors du nombre de pas restants */
 		if((position + numberSpaces) < lastSpace + 1) {
 			position += numberSpaces;
 			turnMessage = turnMessage + "<br>" + coloredName + " advances of " + numberSpaces + " space(s) and arrives on the space " + position;
@@ -72,26 +72,26 @@ public class Player implements IPlayer {
 		}
 	}
 	
-	/* MÃ©thode qui fait reculer le joueur de n cases */
+	/* Méthode qui fait reculer le joueur de n cases */
 	public void moveBack(int numberSpaces) {
 		position -= numberSpaces;
 		turnMessage = turnMessage + "<br>" + coloredName + " moves back of " + numberSpaces + " space(s) and arrives on the space " + position;
 		System.out.println(name + " moves back of " + numberSpaces + " space(s) and arrives on the space " + position);
 	}
 	
-	/* MÃ©thode qui change la variable passeTour pour faire passer son tour au joueur au tour suivant */
+	/* Méthode qui change la variable passeTour pour faire passer son tour au joueur au tour suivant */
 	public void passTurn() {
 		isPassTurn = true;
 	}
 	
-	/* MÃ©thode qui tÃ©lÃ©porte le joueur sur la case envoyÃ©e en paramÃ¨tre */
+	/* Méthode qui téléporte le joueur sur la case envoyée en paramètre */
 	public void teleport(int targetPosition) {
 		position = targetPosition;
 		turnMessage = turnMessage + "<br>" + coloredName + " is teleported to the space " + targetPosition;
 		System.out.println(name + " is teleported to the space " + targetPosition);
 	}
 	
-	/* MÃ©thode test la victoire du joueur */
+	/* Méthode test la victoire du joueur */
 	public boolean hasWon() {
 		if(position == lastSpace) {
 			turnMessage = turnMessage + "<br>" + coloredName + " has won !";
@@ -101,27 +101,27 @@ public class Player implements IPlayer {
 		return false;
 	}
 	
-	/* MÃ©thode qui renvoie le numÃ©ro de la case oÃ¹ se trouve le joueur */
+	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
 	public int getPosition() {
 		return position;
 	}
 	
-	/* MÃ©thode qui renvoie le numÃ©ro de la case oÃ¹ se trouve le joueur */
+	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
 	public int getXInit() {
 		return xInit;
 	}
 	
-	/* MÃ©thode qui renvoie le numÃ©ro de la case oÃ¹ se trouve le joueur */
+	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
 	public int getYInit() {
 		return yInit;
 	}
 	
-	/* MÃ©thode qui renvoie le numÃ©ro de la case oÃ¹ se trouve le joueur */
+	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
 	public String getTurnMessage() {
 		return turnMessage;
 	}
 	
-	/* MÃ©thode qui tÃ©lÃ©porte le joueur sur la case envoyÃ©e en paramÃ¨tre */
+	/* Méthode qui téléporte le joueur sur la case envoyée en paramètre */
 	public boolean isPassTurn() {
 		return isPassTurn;
 	}
