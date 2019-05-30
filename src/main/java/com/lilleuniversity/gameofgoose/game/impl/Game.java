@@ -6,7 +6,7 @@ import com.lilleuniversity.gameofgoose.space.impl.BackSpace;
 import com.lilleuniversity.gameofgoose.space.impl.ForwardSpace;
 import com.lilleuniversity.gameofgoose.space.impl.PassTurnSpace;
 import com.lilleuniversity.gameofgoose.space.impl.Space;
-import com.lilleuniversity.gameofgoose.space.impl.TeleportCase;
+import com.lilleuniversity.gameofgoose.space.impl.TeleportSpace;
 
 import java.awt.Color;
 
@@ -50,7 +50,7 @@ public class Game implements IGame {
 		for(int i = 1; i < 17; i++) {
 			int x = spaces[i-1].getX() + 50;
 			int y = spaces[i-1].getY();
-			if(i == 14) spaces[i] = new TeleportCase(x, y, 27);
+			if(i == 14) spaces[i] = new TeleportSpace(x, y, 27);
 			else if(i == 5 || i == 10) spaces[i] = new ForwardSpace(x, y, 2);
 			else if(i == 11) spaces[i] = new BackSpace(x, y, 2);
 			else if(i == 6) spaces[i] = new PassTurnSpace(x, y);
@@ -69,7 +69,7 @@ public class Game implements IGame {
 		for(int i = 26; i < 42; i++) {
 			int x = spaces[i-1].getX() - 50;
 			int y = spaces[i-1].getY();
-			if(i == 39) spaces[i] = new TeleportCase(x, y, 49);
+			if(i == 39) spaces[i] = new TeleportSpace(x, y, 49);
 			else if(i == 36) spaces[i] = new ForwardSpace(x, y, 1);
 			else if(i == 31) spaces[i] = new BackSpace(x, y, 1);
 			else if(i == 26) spaces[i] = new ForwardSpace(x, y, 2);
@@ -81,7 +81,7 @@ public class Game implements IGame {
 		for(int i = 42; i < 48; i++) {
 			int x = spaces[i-1].getX();
 			int y = spaces[i-1].getY() - 50;
-			if(i == 47) spaces[i] = new TeleportCase(x, y, 0);
+			if(i == 47) spaces[i] = new TeleportSpace(x, y, 0);
 			else if(i == 43) spaces[i] = new ForwardSpace(x, y, 1);
 			else if(i == 42 || i == 46) spaces[i] = new BackSpace(x, y, 1);
 			else spaces[i] = new Space(x, y);
@@ -90,7 +90,7 @@ public class Game implements IGame {
 		for(int i = 48; i < 60; i++) {
 			int x = spaces[i-1].getX() + 50;
 			int y = spaces[i-1].getY();
-			if(i == 57) spaces[i] = new TeleportCase(x, y, 64);
+			if(i == 57) spaces[i] = new TeleportSpace(x, y, 64);
 			else if(i == 55) spaces[i] = new BackSpace(x, y, 1);
 			else if(i == 53) spaces[i] = new PassTurnSpace(x, y);
 			else spaces[i] = new Space(x, y);
@@ -105,8 +105,8 @@ public class Game implements IGame {
 		for(int i = 63; i < 71; i++) {
 			int x = spaces[i-1].getX() - 50;
 			int y = spaces[i-1].getY();
-			if(i == 64) spaces[i] = new TeleportCase(x, y, 57);
-			else if(i == 65) spaces[i] = new TeleportCase(x, y, 32);
+			if(i == 64) spaces[i] = new TeleportSpace(x, y, 57);
+			else if(i == 65) spaces[i] = new TeleportSpace(x, y, 32);
 			else if(i == 67) spaces[i] = new ForwardSpace(x, y, 1);
 			else if(i == 69) spaces[i] = new PassTurnSpace(x, y);
 			else spaces[i] = new Space(x, y);

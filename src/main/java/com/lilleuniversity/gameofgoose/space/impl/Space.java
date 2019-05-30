@@ -3,29 +3,50 @@ package com.lilleuniversity.gameofgoose.space.impl;
 import com.lilleuniversity.gameofgoose.space.ISpace;
 import com.lilleuniversity.gameofgoose.player.impl.Player;
 
-/* Ce type de case ne réalise aucune action sur le joueur */
+/**
+ * Represents a space with no action
+ * @author Jonathan Foucher
+ *
+ */
 public class Space implements ISpace {
-	/*
-		x : l'abscisse de la case sur le plateau par rapport à la case 0
-		y : l'ordonné de la case sur le plateau par rapport à la case 0
-	*/
-	private int x, y;
+	/**
+	 * The x position of the space
+	 */
+	private int x;
 	
-	/* Constructeur de la classe Case */
+	/**
+	 * The y position of the space
+	 */
+	private int y;
+	
+	/**
+	 * The constructor
+	 * @param x The x position of the space
+	 * @param y	The y position of the space
+	 */
 	public Space(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	/* Methode qui rÃ©alise l'action de la case lorsque le joueur arrive sur la case */
+	/**
+	 * The action realized when a player arrives on the space, in this case there is no action done
+	 * @param player The player to advance
+	 */
 	public void action(Player player) {}
 	
-	/* Methode qui renvoie l'abscisse du joueur */
+	/**
+	 * The getter for x attribute of the space
+	 * @return The x position value of the space
+	 */
 	public int getX() {
 		return this.x;
 	}
 	
-	/* Methode qui renvoie l'ordonnÃ©e du joueur */
+	/**
+	 * The getter for y attribute of the space
+	 * @return The y position value of the space
+	 */
 	public int getY() {
 		return this.y;
 	}

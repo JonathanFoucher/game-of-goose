@@ -2,18 +2,32 @@ package com.lilleuniversity.gameofgoose.space.impl;
 
 import com.lilleuniversity.gameofgoose.player.impl.Player;
 
-/* Ce type de case fait avancer le joueur d'un nombre de cases prédéfini */
+/**
+ * Represents a space that advances a player to another space
+ * @author Jonathan Foucher
+ *
+ */
 public class ForwardSpace extends Space {
-	/* nbCase : le nombre de case(s) dont le joueur avance */
+	/**
+	 * The number of spaces the player will advance
+	 */
 	private int spacesNumber;
 	
-	/* Constructeur de la classe CaseAvancer */
-	public ForwardSpace(int abs, int ord, int spacesNumber) {
-		super(abs, ord);
+	/**
+	 * The constructor
+	 * @param x The x position of the space
+	 * @param y	The y position of the space
+	 * @param spacesNumber The number of spaces the player will advance
+	 */
+	public ForwardSpace(int x, int y, int spacesNumber) {
+		super(x, y);
 		this.spacesNumber = spacesNumber;
 	}
 
-	/* Methode qui réalise l'action de la case lorsque le joueur arrive sur la case */
+	/**
+	 * The action realized when a player arrives on the space, in this case it will advance the player
+	 * @param player The player to advance
+	 */
 	public void action(Player player) {
 		player.advance(spacesNumber);
 	}

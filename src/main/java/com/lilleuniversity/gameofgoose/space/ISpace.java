@@ -2,14 +2,27 @@ package com.lilleuniversity.gameofgoose.space;
 
 import com.lilleuniversity.gameofgoose.player.impl.Player;
 
-/* Ce type de case ne réalise aucune action sur le joueur */
+/**
+ * Represents a space interface
+ * @author Jonathan Foucher
+ *
+ */
 public interface ISpace {
-	/* Methode qui réalise l'action de la case lorsque le joueur arrive sur la case */
+	/**
+	 * The action realized when a player arrives on the space (the action depends on the space type)
+	 * @param player The player on whom the action is realized
+	 */
 	public void action(Player player);
 	
-	/* Methode qui renvoie l'abscisse du joueur */
+	/**
+	 * The getter for x attribute of the space
+	 * @return The x position value of the space
+	 */
 	public int getX();
 	
-	/* Methode qui renvoie l'ordonnée du joueur */
+	/**
+	 * The getter for y attribute of the space
+	 * @return The y position value of the space
+	 */
 	public int getY();
 }
