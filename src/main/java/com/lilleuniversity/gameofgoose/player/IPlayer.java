@@ -1,39 +1,79 @@
 package com.lilleuniversity.gameofgoose.player;
 
+/**
+ * Represents a player interface
+ * @author Jonathan Foucher
+ *
+ */
 public interface IPlayer {	
-	/* Méthode qui simule l'action lorsque le joueur joue */
-	public int joue();
+	/**
+	 * Represents the player turn
+	 * @return The space's number where the player is at the end of his/her turn
+	 */
+	public int play();
 	
-	/* Méthode qui simule le lancé de dé */
+	/**
+	 * Simulate the dice roll for the player
+	 * @return The result of the dice roll
+	 */
 	public int rollDice();
 	
-	/* Méthode qui fait avancer le joueur de n cases */
+	/**
+	 * Make the player to advance based on a number of spaces
+	 * @param numberSpaces The number of spaces the player will advance
+	 */
 	public void advance(int numberSpaces);
 	
-	/* Méthode qui fait reculer le joueur de n cases */
+	/**
+	 * Make the player to move back based on a number of spaces
+	 * @param numberSpaces The number of spaces the player will move back
+	 */
 	public void moveBack(int numberSpaces);
 	
-	/* Méthode qui change la variable passeTour pour faire passer son tour au joueur au tour suivant */
+	/**
+	 * Make the player to pass his/her turn during the next turn
+	 */
 	public void passTurn();
 	
-	/* Méthode qui téléporte le joueur sur la case envoyée en paramètre */
+	/**
+	 * Make the player to teleport to a specific space
+	 * @param targetPosition The number of the space where the player will be teleported to
+	 */
 	public void teleport(int targetPosition);
 	
-	/* Méthode test la victoire du joueur */
+	/**
+	 * Test if the player has won
+	 * @return Return true if the player has win and false otherwise
+	 */
 	public boolean hasWon();
 	
-	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
+	/**
+	 * Get the number of the space where the player is
+	 * @return The number of the space where the player is
+	 */
 	public int getPosition();
 	
-	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
+	/**
+	 * Get the initial x position of the player piece
+	 * @return The initial x position of the player piece
+	 */
 	public int getXInit();
 	
-	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
+	/**
+	 * Get the initial y position of the player piece
+	 * @return The initial y position of the player piece
+	 */
 	public int getYInit();
 	
-	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
+	/**
+	 * Get the message of the player for the last turn he played
+	 * @return The message of the player for the last turn he played
+	 */
 	public String getTurnMessage();
 	
-	/* Méthode qui téléporte le joueur sur la case envoyée en paramètre */
+	/**
+	 * Ask if the player should pass his/her turn
+	 * @return Return true if the player should pass his/her turn and false otherwise
+	 */
 	public boolean isPassTurn();
 }

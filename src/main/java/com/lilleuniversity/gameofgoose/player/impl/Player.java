@@ -5,38 +5,79 @@ import com.lilleuniversity.gameofgoose.player.IPlayer;
 import java.util.Random;
 import java.awt.Color;
 
+/**
+ * Represents a player
+ * @author Jonathan Foucher
+ *
+ */
 public class Player implements IPlayer {
-	/*
-		nom : le nom du joueur
-	    nomColor : chaîne de caractère contenant le nom du joueur mais encadré par des balises HTML pour mettre son nom en couleur 
-	    dans l’interface du jeu
-	    passeTour : booléen qui indique si le joueur passe son tour ou si il peut jouer
-		position : le numéro de la case sur laquelle se trouve le joueur
-		xInit : l'abscisse initiale du pion du joueur sur le plateau
-		yInit : l’ordonné initiale du pion du joueur sur le plateau
-		derniereCase : le numéro de la dernière case du jeu (case de victoire)
-		messageTour : chaîne de caractères contenant le message à afficher pour le joueur à la fin du tour
-	*/
-	private String name, coloredName, turnMessage = new String("");
+	/**
+	 * The player's name
+	 */
+	private String name;
+	
+	/**
+	 * The player's name with his color (html style tags)
+	 */
+	private String coloredName;
+	
+	/**
+	 * The player's turn message
+	 */
+	private String turnMessage;
+	
+	/**
+	 * Inidicate if the player should pass his/her turn
+	 */
 	private boolean isPassTurn;
-	private int position, xInit, yInit, lastSpace;
+	
+	/**
+	 * The number of the space where the player is
+	 */
+	private int position;
+	
+	/**
+	 * The initial x position of the player piece
+	 */
+	private int xInit;
+	
+	/**
+	 * The initial y position of the player piece
+	 */
+	private int yInit;
+	
+	/**
+	 * The number of the last space of the board
+	 */
+	private int lastSpace;
 
-	/* Constructeur de la classe Joueur */
-	public Player(String name, int nbCases, int xInit, int yInit, Color color) {
+	/**
+	 * The constructor
+	 * @param name The player's name
+	 * @param lastSpace The number of the last space of the board
+	 * @param xInit The initial x position of the player piece
+	 * @param yInit The initial y position of the player piece
+	 * @param color The player piece color
+	 */
+	public Player(String name, int lastSpace, int xInit, int yInit, Color color) {
 		this.name = name;
 		this.coloredName = "<span style=\"color:rgb(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + ")\">" + name + "</span>";
-		this.lastSpace = nbCases - 1;
+		this.lastSpace = lastSpace - 1;
 		this.isPassTurn = false;
 		this.position = 0;
+		this.turnMessage = new String("");
 		this.xInit = xInit;
 		this.yInit = yInit;
 	}
 	
-	/* Méthode qui simule l'action lorsque le joueur joue */
-	public int joue() {
+	/**
+	 * Represents the player turn
+	 * @return The space's number where the player is at the end of his/her turn
+	 */
+	public int play() {
 		int result = 0;
 		
-		/* Si le joueur ne passe pas son tour, il lance le dé sinon on remet à false la variable passeTour pour le prochain tour */
+		// verify if the player should pass his/her turn or roll the dice
 		if(isPassTurn == false) {
 			advance(rollDice());
 			result = position;
@@ -49,8 +90,12 @@ public class Player implements IPlayer {
 		return result;
 	}
 	
-	/* Méthode qui simule le lancé de dé */
+	/**
+	 * Simulate the dice roll for the player
+	 * @return The result of the dice roll
+	 */
 	public int rollDice() {
+		// random between 1 and 6 for one dice
 		Random random = new Random();
 		int randomResult = 1 + random.nextInt(6);
 		turnMessage = coloredName + " is on the space " + position + " and rolls the dice : " + randomResult;
@@ -58,9 +103,12 @@ public class Player implements IPlayer {
 		return randomResult;
 	}
 	
-	/* Méthode qui fait avancer le joueur de n cases */
+	/**
+	 * Make the player to advance based on a number of spaces
+	 * @param numberSpaces The number of spaces the player will advance
+	 */
 	public void advance(int numberSpaces) {
-		/* On vérifie que le joueur n'avance pas plus loin que la dernière case, si c'est le cas il recule alors du nombre de pas restants */
+		// verify that the player is not going over the last space, if it's the case he/she will roll back of the remaining number of spaces
 		if((position + numberSpaces) < lastSpace + 1) {
 			position += numberSpaces;
 			turnMessage = turnMessage + "<br>" + coloredName + " advances of " + numberSpaces + " space(s) and arrives on the space " + position;
@@ -72,26 +120,37 @@ public class Player implements IPlayer {
 		}
 	}
 	
-	/* Méthode qui fait reculer le joueur de n cases */
+	/**
+	 * Make the player to move back based on a number of spaces
+	 * @param numberSpaces The number of spaces the player will move back
+	 */
 	public void moveBack(int numberSpaces) {
 		position -= numberSpaces;
 		turnMessage = turnMessage + "<br>" + coloredName + " moves back of " + numberSpaces + " space(s) and arrives on the space " + position;
 		System.out.println(name + " moves back of " + numberSpaces + " space(s) and arrives on the space " + position);
 	}
 	
-	/* Méthode qui change la variable passeTour pour faire passer son tour au joueur au tour suivant */
+	/**
+	 * Make the player to pass his/her turn during the next turn
+	 */
 	public void passTurn() {
 		isPassTurn = true;
 	}
 	
-	/* Méthode qui téléporte le joueur sur la case envoyée en paramètre */
+	/**
+	 * Make the player to teleport to a specific space
+	 * @param targetPosition The number of the space where the player will be teleported to
+	 */
 	public void teleport(int targetPosition) {
 		position = targetPosition;
 		turnMessage = turnMessage + "<br>" + coloredName + " is teleported to the space " + targetPosition;
 		System.out.println(name + " is teleported to the space " + targetPosition);
 	}
 	
-	/* Méthode test la victoire du joueur */
+	/**
+	 * Test if the player has won
+	 * @return Return true if the player has win and false otherwise
+	 */
 	public boolean hasWon() {
 		if(position == lastSpace) {
 			turnMessage = turnMessage + "<br>" + coloredName + " has won !";
@@ -101,27 +160,42 @@ public class Player implements IPlayer {
 		return false;
 	}
 	
-	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
+	/**
+	 * Get the number of the space where the player is
+	 * @return The number of the space where the player is
+	 */
 	public int getPosition() {
 		return position;
 	}
 	
-	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
+	/**
+	 * Get the initial x position of the player piece
+	 * @return The initial x position of the player piece
+	 */
 	public int getXInit() {
 		return xInit;
 	}
 	
-	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
+	/**
+	 * Get the initial y position of the player piece
+	 * @return The initial y position of the player piece
+	 */
 	public int getYInit() {
 		return yInit;
 	}
 	
-	/* Méthode qui renvoie le numéro de la case où se trouve le joueur */
+	/**
+	 * Get the message of the player for the last turn he played
+	 * @return The message of the player for the last turn he played
+	 */
 	public String getTurnMessage() {
 		return turnMessage;
 	}
 	
-	/* Méthode qui téléporte le joueur sur la case envoyée en paramètre */
+	/**
+	 * Ask if the player should pass his/her turn
+	 * @return Return true if the player should pass his/her turn and false otherwise
+	 */
 	public boolean isPassTurn() {
 		return isPassTurn;
 	}

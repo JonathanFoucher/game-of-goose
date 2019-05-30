@@ -116,7 +116,7 @@ public class Game implements IGame {
 	/* Methode qui appelle l'action du joueur actuel */
 	public void rollDice(int n, int turn) {
 		if(n == 0) System.out.println("------------------------------------------------------\n\nTURN " + turn + " :\n");
-		spaces[players[n].joue()].action(players[n]);
+		spaces[players[n].play()].action(players[n]);
 		isGameEnded = players[n].hasWon();
 		System.out.println("");
 	}

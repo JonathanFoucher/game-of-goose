@@ -15,13 +15,13 @@ public interface ISpace {
 	public void action(Player player);
 	
 	/**
-	 * The getter for x attribute of the space
+	 * Get the x position value of the space
 	 * @return The x position value of the space
 	 */
 	public int getX();
 	
 	/**
-	 * The getter for y attribute of the space
+	 * Get the y position value of the space
 	 * @return The y position value of the space
 	 */
 	public int getY();
