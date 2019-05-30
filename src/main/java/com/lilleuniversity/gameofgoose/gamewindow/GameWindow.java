@@ -25,111 +25,170 @@ import com.lilleuniversity.gameofgoose.gamewindow.listeners.PlayersComboBoxListe
 import com.lilleuniversity.gameofgoose.gamewindow.listeners.QuitButtonListener;
 
 /**
- * 
- * @author JonathanFoucher
  * Represents the game application window
+ * @author JonathanFoucher
  *
  */
 public class GameWindow extends JFrame {
+	/**
+	 * The serial version UID
+	 */
 	private static final long serialVersionUID = 1L;
 
-	/*
-	 * grille : JPanel représentant le fond de la fenêtre
+	/**
+	 * The main panel
 	 */
 	public JPanel backgroundPanel = new JPanel();
 	
-	/*
-		combo : la combobox qui permet de choisir le nombre de joueurs
-		textBoxJoueurs : les textbox qui permettent d'entrer les noms des joueurs
-		labelJoueurs : labels "Joueur 1" "Joueur 2"...
-		btLancer : le bouton pour lancer la partie
-		btQuitter : le bouton pour quitter l'application
-	*/
+	/**
+	 * The combobox to indicates the number of players
+	 */
 	public JComboBox<Integer> playersComboBox = new JComboBox<>();
-	public JTextField[] playersTextBoxes;
-	public JLabel[] playersLabels;
-	private JButton launchButton = new JButton("Launch"); 
-	public JButton quitButton = new JButton("Quit"); 
 	
-	/* 
-		nbJoueursMax : le nombre de joueurs maximum, ici fixé à 4 par choix
-		couleurs : le tableau contenant les couleurs des joueurs
-		nbJoueurs : le nombre de joueurs choisi par l'utilisateur (récupéré avec la combobox)
-	*/
+	/**
+	 * The players textboxes
+	 */
+	public JTextField[] playersTextBoxes;
+	
+	/**
+	 * The players labels
+	 */
+	public JLabel[] playersLabels;
+	
+	/**
+	 * The button to start the game
+	 */
+	private JButton launchButton = new JButton("Launch"); 
+	
+	/**
+	 * The quit button
+	 */
+	public JButton quitButton = new JButton("Quit"); 
+
+	/**
+	 * The maximum of players allowed
+	 */
 	private static int maxPlayers = 4;
+	
+	/**
+	 * The array containing the players' colors
+	 */
 	public Color[] playersColors = new Color[maxPlayers];
+	
+	/**
+	 * The number of players playing
+	 */
 	public int playersNumber;
 	
-	/* 
-		maPartie : l'instance de la classe JeuOie liée à l'interface
-		plateauJeu : le panneau qui contient le plateau de jeu
-		plateauLabel : ce label est utilisé pour charger l'image du plateau dans le panneau plateauJeu
-		scores : tableau de panneaux pour former la bande sous le plateau de jeu (selecteur de joueur, score, messages, boutons)
-		labelTour : le label qui indique le numéro de tour actuel
-		labelJou : un tableau de labels affichera les noms des joueurs et leurs scores
-		btJouer : bouton qui permet de lancer le dé
-		message : le message affiché (lorsqu'un joueur avance, passe son tour ...)
-		msg : la chaîne contenant le contenu du message à afficher
-		actionN : le compteur d'actions réalisées, il permet de connaître par calcul quel joueur joue actuellement et à quel tour on se trouve
-		jeu : booléan qui indique si le jeu a été lancé ou si on est encore en phase de configuration
-		indicateurJoueur : le label contenant l'image du sélecteur, le sélecteur indique graphiquement quel joueur doit lancer le dé en se plaçant devant son nom
-	*/
+	/**
+	 * The game
+	 */
 	public Game game;
-	public JPanel gameBoard = new JPanel();
-	public Board gameBoardLabel;
+	
+	/**
+	 * The board
+	 */
+	public Board gameBoard;
+	
+	/**
+	 * The scores panels
+	 */
 	public JPanel[] scoresPanels = new JPanel[6];
+	
+	/**
+	 * The turn panel
+	 */
 	public JLabel turnLabel = new JLabel("Turn 1");
+	
+	/**
+	 * The players labels
+	 */
 	public JLabel[] playersLabel;
+	
+	/**
+	 * The play button, it allows the player to rolls the dices
+	 */
 	public JButton playButton = new JButton("");
+	
+	/**
+	 * The turn message label
+	 */
 	public JLabel messageLabel = new JLabel("<html><center>The game is starting<br>Click on the dice to make a roll</center></html>", JLabel.CENTER);
+	
+	/**
+	 * The turn message
+	 */
 	private String message = new String("");
+	
+	/**
+	 * The action counter
+	 */
 	private int actionCounter = 1;
+	
+	/**
+	 * The boolean that indicates if the game has started
+	 */
 	public boolean isGameStarted = false;
+	
+	/**
+	 * The player selector, it indicates whose turn it is
+	 */
 	public JLabel playerSelectorLabel;
 	
-	/*
-		listener : objet qui permet "d'écouter" le timer pour savoir quand il est écoulé
-		timer : timer qui permet de gérer le déplacement d'un pion (on retrace le pion toutes les 5ms en décalant de 2 pixels)
-		xJoueur : tableau qui contient les abscisses où se trouve les joueurs
-		yJoueur : tableau qui contient les ordonnées où se trouve les joueurs
-		xPion : tableau qui contient les abscisses où se trouvent les pions
-		yPion : tableau qui contient les ordonnées où se trouvent les pions
-		On sait que l'on doit déplacer un pion tant que son abscisse et/ou son ordonnée ne sont pas les mêmes que celles du joueur correspondant
-		On peut donc imaginer xJoueur et yJoueur la position finale du mouvemant d'un pion
-	*/
+	/**
+	 * The timer for the pieces motions
+	 */
 	private Timer timer;
+	
+	/**
+	 * The players x positions
+	 */
 	public int[] xPlayer;
+	
+	/**
+	 * The players y positions
+	 */
 	public int[] yPlayer;
+	
+	/**
+	 * The players pieces x positions
+	 */
 	public int[] xPiece;
+	
+	/**
+	 * The players pieces y positions
+	 */
 	public int[] yPiece;
 	
-	/* Constructeur de la classe Fenetre */
+	/**
+	 * The constructor
+	 */
 	public GameWindow() {
-		/* Les paramètres de la fenêtre */
+		// window settings
 		setTitle("Game configuration");
 		setSize(250, (110 + 55 * maxPlayers));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		
-		/* Les paramètres du panneau de fond de la fenêtre */
+		// main panel settings
 		backgroundPanel.setBackground(Color.white);
 		backgroundPanel.setLayout(new GridBagLayout());
 		
-		/* On définit les couleurs des quatre joueurs */
+		// players' colors
 		playersColors[0] = new Color(0, 0, 255);
 		playersColors[1] = new Color(255, 0, 0);
 		playersColors[2] = new Color(0, 180, 0);
 		playersColors[3] = new Color(130, 0, 250);
 		
-		/* On forme la combobox avec ses options */
+		// combobox for the number of players
 		for(int i = 2; i < maxPlayers + 1; i++)
 			playersComboBox.addItem(i);
 		playersComboBox.setForeground(Color.blue);
 		playersComboBox.setPreferredSize(new Dimension(50, 20));
 		playersComboBox.addActionListener(new PlayersComboBoxListener(this));
 		
-		/* On créé les labels et textbox pour les noms des joueurs */
+		// labels and textboxes for the players' names
 		playersTextBoxes = new JTextField[maxPlayers];
 		playersLabels = new JLabel[maxPlayers];
 		for(int i = 0; i < playersTextBoxes.length; i++) {
@@ -145,7 +204,7 @@ public class GameWindow extends JFrame {
 		}
 		
 		
-		/* On place les différents éléments dans le panneau de fond */
+		// adding the different elements on the main panel
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -186,45 +245,56 @@ public class GameWindow extends JFrame {
 		backgroundPanel.add(quitButton, gbc);
 		
 		
-		/* On ajoute l'écoute des boutons et du focus de la fenêtre */
+		// listeners
 		launchButton.addActionListener(new LaunchButtonListener(this));
 		playButton.addActionListener(new PlayButtonListener(this));
 		quitButton.addActionListener(new QuitButtonListener());
-		addWindowFocusListener(new AppWindowFocusListener(isGameStarted, gameBoardLabel));
+		addWindowFocusListener(new AppWindowFocusListener(isGameStarted, gameBoard));
 		
-		/* On appelle la méthode creeTimer() pour créer le timer */
+		// create the timer
 		createTimer();
 		
-		/* On ajoute le panneau de fond à la fenêtre et on rend la fenêtre visible */
+		// setting the main panel
 		setContentPane(backgroundPanel);
 		setVisible(true);
 	}
 	
-	/* Méthode qui gère le déplacement des pions (variation abscisse/ordonnée avec un rappel sur le timer pour donner l'illusion d'un mouvement constant) */
+	/**
+	 * Create and manage the timer for the pieces motions
+	 */
 	public void createTimer() {
+		/**
+		 * The timer listener
+		 */
 		AbstractAction listener = new AbstractAction() {
+			/**
+			 * The serial version UID
+			 */
             private static final long serialVersionUID = 1L;
 
+            /**
+             * Method called at the end of the timer
+             * @param e The ActionEvent
+             */
 			public void actionPerformed(ActionEvent e) {
 				timer.stop();
 				int n = (actionCounter - 1)%playersNumber;
-				/* Si la position du pion n'est pas égale à la position du joueur, on déplace le pion vers la position joueur et on relance le timer
-				   en boucle jusqu'à ce que la position soit la même */
+				// if the piece position is different from the player position, the piece makes a step to the players position and call the timer
 				if(xPiece[n] < xPlayer[n]) {
 					xPiece[n]+=2;
-					gameBoardLabel.repaint();
+					gameBoard.repaint();
 					timer.start();
 				} else if(yPiece[n] < yPlayer[n]) {
 					yPiece[n]+=2;
-					gameBoardLabel.repaint();
+					gameBoard.repaint();
 					timer.start();
 				} else if(xPiece[n] > xPlayer[n]) {
 					xPiece[n]-=2;
-					gameBoardLabel.repaint();
+					gameBoard.repaint();
 					timer.start();
 				} else if(yPiece[n] > yPlayer[n]) {
 					yPiece[n]-=2;
-					gameBoardLabel.repaint();
+					gameBoard.repaint();
 					timer.start();
 				} else {
 					if(!game.isGameEnded()) {
@@ -239,11 +309,13 @@ public class GameWindow extends JFrame {
 		timer = new Timer(5, listener);
 	}
 	
-	/* Méthode qui gère le tour d'un joueur
-	   Cette méthode peut être appelée par un appuie sur un joueur (paramètre à true) ou si un joueur doit passer son tour (paramètre à false) */
-	public void nextPlayer(boolean nouvelleAction) {
-		/* Si un joueur passe son tour on ne ré-initiale pas le message */
-		if(nouvelleAction)
+	/**
+	 * Play the next player turn
+	 * @param hasPlayed The boolean that indicates if the player played (true) or passed his/her turn (false)
+	 */
+	public void nextPlayer(boolean hasPlayed) {
+		// if the player didn't pass his/her turn, we erase the message
+		if(hasPlayed)
 			message = "";
 		
 		int playerNumber = (actionCounter-1)%playersNumber;
@@ -253,10 +325,10 @@ public class GameWindow extends JFrame {
 		playButton.setEnabled(false);
 		game.getPlayerPosition(playerNumber);
 		
-		/* On appelle la méthode lancerDe de la classe JeuOie pour faire jouer l'action du joueur */
-		game.rollDice(playerNumber, turn);
+		// the player plays
+		game.play(playerNumber, turn);
 		
-		/* On modifie le score du joueur, l'affichage du numéro de tour et le message affiché en bas de l'écran */
+		// update the score, the turn number and the message
 		playersLabel[playerNumber].setText(playersTextBoxes[playerNumber].getText() + " : " + game.getPlayerPosition(playerNumber));
 		
 		message = message + "<br>" + game.getPlayerMessage(playerNumber);
@@ -266,14 +338,14 @@ public class GameWindow extends JFrame {
 		
 		turnLabel.setText("Turn " + turn);
 		
-		/* On récupère les nouvelles abscisse et ordonnée du joueur après avoir joué */
+		// get the new player position
 		xPlayer[playerNumber] = game.getPlayerX(playerNumber);
 		yPlayer[playerNumber] = game.getPlayerY(playerNumber);
 		
-		/* On lance le timer pour initier le déplacement, il s'appelera autant que nécessaire jusqu'à l'arrivée du pion à la position du joueur */
+		// call the timer to move the piece
 		timer.start();
 		
-		/* Si la partie n'est pas finie, on fait avancer le sélecteur au joueur suivant pour indiquer que c'est à son tour de jouer */
+		// if the game is not ended, update the selector position to indicate whose turn it is
 		if(!game.isGameEnded()) {
 			scoresPanels[4].removeAll();
 			scoresPanels[4].add(Box.createRigidArea(new Dimension(20, (35 + m*21))));

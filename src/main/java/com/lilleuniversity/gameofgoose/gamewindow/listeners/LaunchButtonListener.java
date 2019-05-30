@@ -23,28 +23,54 @@ import com.lilleuniversity.gameofgoose.game.impl.Game;
 import com.lilleuniversity.gameofgoose.gamewindow.Board;
 import com.lilleuniversity.gameofgoose.gamewindow.GameWindow;
 
-/* Action qui s'applique lorsque l'utilisateur appuie sur le bouton "Lancer" */
+/**
+ * Listener for the game launcher button
+ * @author Jonathan Foucher
+ *
+ */
 public class LaunchButtonListener implements ActionListener {
+	/**
+	 * The game window
+	 */
 	private GameWindow gameWindow;
 	
-	public static final String DICE_URL = "images/dice.png";
-	public static final String SELECTOR_URL = "images/selector.png";
-	public static final String BOARD_URL = "images/board.png";
+	/**
+	 * The dice image path
+	 */
+	public static final String DICE_PATH = "images/dice.png";
 	
+	/**
+	 * The selector image path
+	 */
+	public static final String SELECTOR_PATH = "images/selector.png";
+	
+	/**
+	 * The board image path
+	 */
+	public static final String BOARD_PATH = "images/board.png";
+	
+	/**
+	 * The constructor
+	 * @param gameWindow The game window
+	 */
 	public LaunchButtonListener(GameWindow gameWindow) {
 		this.gameWindow = gameWindow;
 	}
 
+	/**
+	 * Method called when the player clicks on the game launcher button
+	 * @param e The ActionEvent
+	 */
 	@Override
     public void actionPerformed(ActionEvent e) {
-        /* On commence par vérifier que des noms ont été entrés dans les textbox
-           Si ce n'est pas le cas, on affiche un message d'erreur sinon on forme la fenêtre de jeu */
-        boolean namesTest = true;
+        // verify that the names have been typed
+        boolean isNamesOk = true;
         for(int i = 0; i < (Integer)gameWindow.playersComboBox.getSelectedItem(); i++) {
-            if(gameWindow.playersTextBoxes[i].getText().length() == 0) namesTest = false;
+            if(gameWindow.playersTextBoxes[i].getText().length() == 0) isNamesOk = false;
         }
         
-        if(!namesTest) {
+        // if everything is good, the game start, otherwise an error message shows up
+        if(!isNamesOk) {
             JOptionPane.showMessageDialog(null, "Error, a player's name cannot be empty !", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
         	gameWindow.isGameStarted = true;
@@ -59,11 +85,11 @@ public class LaunchButtonListener implements ActionListener {
             Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
             gameWindow.setLocation(dimension.width/2 - gameWindow.getSize().width/2, dimension.height/2 - gameWindow.getSize().height/2);
             
-            /* Paramètres du panneau contenant le plateau de jeu */
+            // board panel
             gameWindow.gameBoard.setLayout(new GridBagLayout());
             gameWindow.gameBoard.setPreferredSize(new Dimension(width, 600));
             
-            /* On définit les paramètres des panneaux de scores */
+            // scores panels
             for(int i = 0; i < gameWindow.scoresPanels.length; i++) {
             	gameWindow.scoresPanels[i] = new JPanel();
                 if(i < 2) gameWindow.scoresPanels[i].setLayout(new FlowLayout());
@@ -82,7 +108,7 @@ public class LaunchButtonListener implements ActionListener {
             gameWindow.scoresPanels[4].setPreferredSize(new Dimension(95, 135));
             gameWindow.scoresPanels[5].setPreferredSize(new Dimension(129, 135));
             
-            /* On ajoute les différents panneaux */
+            // add the panels
             gameWindow.backgroundPanel.add(gameWindow.gameBoard);
             gameWindow.backgroundPanel.add(gameWindow.scoresPanels[0]);
             for(int i = 1; i < gameWindow.scoresPanels.length; i++)
@@ -93,17 +119,17 @@ public class LaunchButtonListener implements ActionListener {
             gameWindow.scoresPanels[1].add(gameWindow.scoresPanels[4]);
             gameWindow.scoresPanels[1].add(gameWindow.scoresPanels[5]);
             
-            /* On ajoute l'image du sélecteur */
+            // selector image
             gameWindow.scoresPanels[4].add(Box.createRigidArea(new Dimension(20, 35)));
             try {
-                Image img = ImageIO.read(getClass().getClassLoader().getResource(SELECTOR_URL));
+                Image img = ImageIO.read(getClass().getClassLoader().getResource(SELECTOR_PATH));
                 gameWindow.playerSelectorLabel = new JLabel(new ImageIcon(img));
                 gameWindow.scoresPanels[4].add(gameWindow.playerSelectorLabel);
             } catch (Exception ex) {
                 System.out.println(ex);
             }
             
-            /* On paramètre et ajoute les labels de score des joueurs (noms + scores) */
+            // labels
             for(int i = 0; i < gameWindow.playersNumber; i++) {
             	gameWindow.playersLabel[i] = new JLabel(gameWindow.playersTextBoxes[i].getText() + " : 0");
             	gameWindow.playersLabel[i].setForeground(gameWindow.playersColors[i]);
@@ -120,15 +146,15 @@ public class LaunchButtonListener implements ActionListener {
             
             gameWindow.scoresPanels[2].add(gameWindow.messageLabel, BorderLayout.CENTER);
             
-            /* On ajoute une image de dé sur le bouton "Jouer" */
+            // dice image
             try {
-                Image img = ImageIO.read(getClass().getClassLoader().getResource(DICE_URL));
+                Image img = ImageIO.read(getClass().getClassLoader().getResource(DICE_PATH));
                 gameWindow.playButton.setIcon(new ImageIcon(img));
             } catch (Exception ex) {
                 System.out.println(ex);
             }
             
-            /* On configure et ajoute les boutons */
+            // buttons
             gameWindow.playButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             gameWindow.quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             gameWindow.playButton.setPreferredSize(new Dimension(80, 20));
@@ -138,16 +164,16 @@ public class LaunchButtonListener implements ActionListener {
             gameWindow.scoresPanels[3].add(Box.createRigidArea(new Dimension(0,20)));
             gameWindow.scoresPanels[3].add(gameWindow.quitButton);
             
-            /* On ajoute l'image du plateau */
+            // image of the board
             try {
-                Image img = ImageIO.read(getClass().getClassLoader().getResource(BOARD_URL));
-                gameWindow.gameBoardLabel = new Board(new ImageIcon(img), gameWindow);
-                gameWindow.gameBoard.add(gameWindow.gameBoardLabel);
+                Image img = ImageIO.read(getClass().getClassLoader().getResource(BOARD_PATH));
+                gameWindow.gameBoard = new Board(new ImageIcon(img), gameWindow);
+                gameWindow.gameBoard.add(gameWindow.gameBoard);
             } catch (Exception ex) {
                 System.out.println(ex);
             }
             
-            /* On définit les position initiales des pions et des joueurs */
+            // initial positions of the players pieces
             gameWindow.xPlayer = new int[4];
             gameWindow.yPlayer = new int[4];
             gameWindow.xPiece = new int[gameWindow.playersNumber];
@@ -162,15 +188,15 @@ public class LaunchButtonListener implements ActionListener {
             	gameWindow.yPiece[i] = gameWindow.yPlayer[i];
             }
             
-            /* On change les couleurs du texte des labels pour afficher le texte en blanc */
+            // text in white
             gameWindow.turnLabel.setForeground(Color.WHITE);
             gameWindow.messageLabel.setForeground(Color.WHITE);
             
-            /* On crée une instance de la classe JeuOie et on donne les paramètres choisis */
+            // creating the game
             gameWindow.game = new Game(gameWindow.playersNumber, playersNames, gameWindow.playersColors, gameWindow.xPlayer, gameWindow.yPlayer);
             
-            /* On dessine les pions */
-            gameWindow.gameBoardLabel.repaint();
+            // draw the pieces
+            gameWindow.gameBoard.repaint();
         }
     }
 }

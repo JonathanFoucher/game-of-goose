@@ -6,17 +6,32 @@ import java.awt.event.ActionListener;
 
 import com.lilleuniversity.gameofgoose.gamewindow.GameWindow;
 
-/* Action qui s'applique lorsque l'utilisateur change la valeur de la combobox du nombre de joueurs (fenêtre de configuration) */
+/**
+ * Listener for the combobox allowing to choose the number of players
+ * @author Jonathan Foucher
+ *
+ */
 public class PlayersComboBoxListener implements ActionListener {
+	/**
+	 * The game window
+	 */
 	private GameWindow gameWindow;
 	
+	/**
+	 * The constructor
+	 * @param gameWindow The game window
+	 */
 	public PlayersComboBoxListener(GameWindow gameWindow) {
 		this.gameWindow = gameWindow;
 	}
 
+	/**
+	 * Mehtod called when the player chooses an element in the combobox
+	 * @param e The ActionEvent
+	 */
 	@Override
     public void actionPerformed(ActionEvent e) {
-        /* Selon le nombre sélectionné dans la combobox, on grise/dégrise les labels et textbox des noms des joueurs */
+		// in function on the number of players chosen, the player names textbox will be greyed or ungreyed
         for(int i = 2; i < (Integer)gameWindow.playersComboBox.getSelectedItem(); i++) {
         	gameWindow.playersTextBoxes[i].setEnabled(true);
         	gameWindow.playersLabels[i].setForeground(Color.BLACK);

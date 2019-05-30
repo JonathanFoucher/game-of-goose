@@ -149,7 +149,7 @@ public class Player implements IPlayer {
 	
 	/**
 	 * Test if the player has won
-	 * @return Return true if the player has win and false otherwise
+	 * @return Returns true if the player has win and false otherwise
 	 */
 	public boolean hasWon() {
 		if(position == lastSpace) {
@@ -194,7 +194,7 @@ public class Player implements IPlayer {
 	
 	/**
 	 * Ask if the player should pass his/her turn
-	 * @return Return true if the player should pass his/her turn and false otherwise
+	 * @return Returns true if the player should pass his/her turn and false otherwise
 	 */
 	public boolean isPassTurn() {
 		return isPassTurn;

@@ -10,39 +10,69 @@ import com.lilleuniversity.gameofgoose.space.impl.TeleportSpace;
 
 import java.awt.Color;
 
+/**
+ * Represents the game
+ * @author Jonathan Foucher
+ *
+ */
 public class Game implements IGame {
-	/*
-		fini : le booléen qui indique si la partie est finie ou non
-		joueurs : le tableau contenant les joueurs
-		cases : le tableau contenant les cases du jeu
-		k : le nombre de joueurs
-		nbCases : le nombre de cases du jeu
-	*/
+	/**
+	 * The boolean representing the game state
+	 */
 	private boolean isGameEnded;
+	
+	/**
+	 * The array containing the players
+	 */
 	private Player[] players;
+	
+	/**
+	 * The array containing the spaces of the board
+	 */
 	private Space[] spaces;
-	private int k, spacesNumber;
+	
+	/**
+	 * The number of players
+	 */
+	private int playersNumber;
+	
+	/**
+	 * The number of spaces on the board
+	 */
+	private int spacesNumber;
 
-	/* Constructeur de la classe JeuOie */
+	/**
+	 * The constructor
+	 * @param playersNumber The number of players
+	 * @param names The array containing the players' names
+	 * @param colors The array containing the players' colors
+	 * @param x The array containing the players x positions
+	 * @param y The array containing the players y positions
+	 */
 	public Game(int playersNumber, String[] names, Color[] colors, int[] x, int[] y) {
-		k = playersNumber;
+		this.playersNumber = playersNumber;
 		spacesNumber = 71;
 		initSpaces();
 		initPlayers(names, colors, x, y);
 		isGameEnded = false;
 	}
 	
-	/* Methode qui initialise les joueurs de la partie */
+	/**
+	 * The players initialization
+	 * @param names The array containing the players' names
+	 * @param colors The array containing the players' colors
+	 * @param x The array containing the x players pieces' position at the initialization
+	 * @param y The array containing the y players pieces' position at the initialization
+	 */
 	public void initPlayers(String[] names, Color[] colors, int[] x, int[] y) {
-		players = new Player[k];
-		for(int i = 0; i < k; i++)
+		players = new Player[playersNumber];
+		for(int i = 0; i < playersNumber; i++)
 			players[i] = new Player(names[i], spacesNumber, x[i], y[i], colors[i]);
 	}
 	
-	/* Methode qui initialise les cases de la partie 
-	   Les cases du plateau sont de taille 50 pixels
-	   La case 0 représente l'origine (0, 0) et on déduite la postion des cases suivantes en décalant soit en abscisse soit en ordonnée de 50
-	   Par exemple la case 1 étant à sa droite, elle se situe en (50, 0) */
+	/**
+	 * The spaces initialization
+	 */
 	public void initSpaces() {
 		spaces = new Space[spacesNumber];
 		
@@ -113,42 +143,74 @@ public class Game implements IGame {
 		}
 	}
 	
-	/* Methode qui appelle l'action du joueur actuel */
-	public void rollDice(int n, int turn) {
+	/**
+	 * Make the next player to play
+	 * @param n The number of the player
+	 * @param turn The turn number in the game
+	 */
+	public void play(int n, int turn) {
+		// if n is equals to 0, it's a new turn
 		if(n == 0) System.out.println("------------------------------------------------------\n\nTURN " + turn + " :\n");
+		
+		// the player plays his/her turn
 		spaces[players[n].play()].action(players[n]);
+		
+		// check if the game is ended (the game is ended when a player wins)
 		isGameEnded = players[n].hasWon();
 		System.out.println("");
 	}
 	
-	/* Methode qui permet de faire remonter la position du joueur dans l'interface */
+	/**
+	 * Get the player position (number of the space he/she is on)
+	 * @param n The number of the player
+	 * @return The player position
+	 */
 	public int getPlayerPosition(int n) {
 		return (players[n].getPosition());
 	}
 	
-	/* Methode qui permet de faire remonter l'abscisse du joueur dans l'interface */
+	/**
+	 * Get the player x position
+	 * @param n The number of the player
+	 * @return The player x position
+	 */
 	public int getPlayerX(int n) {
-		/* Pour déterminer la nouvelle abscisse d'un joueur, il suffit d'additionner son abscisse initiale avec l'abscisse de la case */
+		// to determinate the new x position of a player, we add the space x position to the initial x position of the player
 		return (players[n].getXInit() + spaces[players[n].getPosition()].getX());
 	}
 	
-	/* Methode qui permet de faire remonter l'ordonnée du joueur dans l'interface */
+	/**
+	 * Get the player y position
+	 * @param n The number of the player
+	 * @return The player y position
+	 */
 	public int getPlayerY(int n) {
-		/* Pour déterminer la nouvelle ordonnée d'un joueur, il suffit d'additionner son ordonnée initiale avec l'ordonnée de la case */
+		// to determinate the new y position of a player, we add the space y position to the initial y position of the player
 		return (players[n].getYInit() + spaces[players[n].getPosition()].getY());
 	}
 	
-	/* Methode qui permet de faire remonter le message du joueur dans l'interface */
+	/**
+	 * Get the player message
+	 * @param n The number of the player
+	 * @return The player message
+	 */
 	public String getPlayerMessage(int n) {
 		return players[n].getTurnMessage();
 	}
 	
-	/* Methode qui permet de faire remonter si le joueur passe son tour dans l'interface */
+	/**
+	 * Ask if the player pass his/her turn
+	 * @param n The number of the player
+	 * @return Returns true if the player passes his/her turn and false otherwise
+	 */
 	public boolean isPassTurn(int n) {
 		return players[n].isPassTurn();
 	}
 	
-	/* Methode qui indique à l'interface si la partie est finie */
+	/**
+	 * Ask if the game is ended
+	 * @return Returns true if the game is ended and false otherwise
+	 */
 	public boolean isGameEnded() {
 		return isGameEnded;
 	}

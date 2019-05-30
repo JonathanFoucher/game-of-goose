@@ -5,24 +5,45 @@ import java.awt.event.WindowFocusListener;
 
 import com.lilleuniversity.gameofgoose.gamewindow.Board;
 
-/* On retrace les pions lorsque la fenêtre reprend le focus (pour corriger un bug où les pions disparaissent lorsque la fenêtre perd le focus) */
+/**
+ * Listener for the windows focus
+ * @author Jonathan Foucher
+ *
+ */
 public class AppWindowFocusListener implements WindowFocusListener {
+	/**
+	 * The boolean that indicates if the game has started
+	 */
 	private boolean isGameStarted;
-	private Board gameBoardLabel;
 	
-	public AppWindowFocusListener(boolean isGameStarted, Board gameBoardLabel) {
+	/**
+	 * The game board
+	 */
+	private Board gameBoard;
+	
+	/**
+	 * The constructor
+	 * @param The boolean that indicates if the game has started
+	 * @param gameBoard The game board
+	 */
+	public AppWindowFocusListener(boolean isGameStarted, Board gameBoard) {
 		this.isGameStarted = isGameStarted;
-		this.gameBoardLabel = gameBoardLabel;
+		this.gameBoard = gameBoard;
 	}
 
+	/**
+	 * Method called when the window gains the focus, we repaint the board
+	 * @param e The WindowEvent
+	 */
 	@Override
 	public void windowGainedFocus(WindowEvent e) {
-        if(isGameStarted) gameBoardLabel.repaint();
+        if(isGameStarted) gameBoard.repaint();
     }
 
+	/**
+	 * Method called when the window gains the focus, nothing is done
+	 * @param e The WindowEvent
+	 */
 	@Override
-	public void windowLostFocus(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowLostFocus(WindowEvent e) {}
 }
