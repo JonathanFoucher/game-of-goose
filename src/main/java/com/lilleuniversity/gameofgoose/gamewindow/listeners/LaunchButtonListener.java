@@ -86,8 +86,8 @@ public class LaunchButtonListener implements ActionListener {
             gameWindow.setLocation(dimension.width/2 - gameWindow.getSize().width/2, dimension.height/2 - gameWindow.getSize().height/2);
             
             // board panel
-            gameWindow.gameBoard.setLayout(new GridBagLayout());
-            gameWindow.gameBoard.setPreferredSize(new Dimension(width, 600));
+            gameWindow.gameBoardPanel.setLayout(new GridBagLayout());
+            gameWindow.gameBoardPanel.setPreferredSize(new Dimension(width, 600));
             
             // scores panels
             for(int i = 0; i < gameWindow.scoresPanels.length; i++) {
@@ -109,7 +109,7 @@ public class LaunchButtonListener implements ActionListener {
             gameWindow.scoresPanels[5].setPreferredSize(new Dimension(129, 135));
             
             // add the panels
-            gameWindow.backgroundPanel.add(gameWindow.gameBoard);
+            gameWindow.backgroundPanel.add(gameWindow.gameBoardPanel);
             gameWindow.backgroundPanel.add(gameWindow.scoresPanels[0]);
             for(int i = 1; i < gameWindow.scoresPanels.length; i++)
             	gameWindow.scoresPanels[0].add(gameWindow.scoresPanels[i]);
@@ -167,8 +167,8 @@ public class LaunchButtonListener implements ActionListener {
             // image of the board
             try {
                 Image img = ImageIO.read(getClass().getClassLoader().getResource(BOARD_PATH));
-                gameWindow.gameBoard = new Board(new ImageIcon(img), gameWindow);
-                gameWindow.gameBoard.add(gameWindow.gameBoard);
+                gameWindow.gameBoardLabel = new Board(new ImageIcon(img), gameWindow);
+                gameWindow.gameBoardPanel.add(gameWindow.gameBoardLabel);
             } catch (Exception ex) {
                 System.out.println(ex);
             }
@@ -196,7 +196,7 @@ public class LaunchButtonListener implements ActionListener {
             gameWindow.game = new Game(gameWindow.playersNumber, playersNames, gameWindow.playersColors, gameWindow.xPlayer, gameWindow.yPlayer);
             
             // draw the pieces
-            gameWindow.gameBoard.repaint();
+            gameWindow.gameBoardLabel.repaint();
         }
     }
 }
