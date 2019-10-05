@@ -93,7 +93,7 @@ public class GameWindow extends JFrame {
 	/**
 	 * The board
 	 */
-	public Board gameBoardLabel;
+	public Board gameBoard;
 	
 	/**
 	 * The scores panels
@@ -254,7 +254,7 @@ public class GameWindow extends JFrame {
 		launchButton.addActionListener(new LaunchButtonListener(this));
 		playButton.addActionListener(new PlayButtonListener(this));
 		quitButton.addActionListener(new QuitButtonListener());
-		addWindowFocusListener(new AppWindowFocusListener(isGameStarted, gameBoardLabel));
+		addWindowFocusListener(new AppWindowFocusListener(isGameStarted, gameBoard));
 		
 		// create the timer
 		createTimer();
@@ -287,19 +287,19 @@ public class GameWindow extends JFrame {
 				// if the piece position is different from the player position, the piece makes a step to the players position and call the timer
 				if(xPiece[n] < xPlayer[n]) {
 					xPiece[n]+=2;
-					gameBoardLabel.repaint();
+					gameBoard.repaint();
 					timer.start();
 				} else if(yPiece[n] < yPlayer[n]) {
 					yPiece[n]+=2;
-					gameBoardLabel.repaint();
+					gameBoard.repaint();
 					timer.start();
 				} else if(xPiece[n] > xPlayer[n]) {
 					xPiece[n]-=2;
-					gameBoardLabel.repaint();
+					gameBoard.repaint();
 					timer.start();
 				} else if(yPiece[n] > yPlayer[n]) {
 					yPiece[n]-=2;
-					gameBoardLabel.repaint();
+					gameBoard.repaint();
 					timer.start();
 				} else {
 					if(!game.isGameEnded()) {

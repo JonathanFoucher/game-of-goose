@@ -167,8 +167,8 @@ public class LaunchButtonListener implements ActionListener {
             // image of the board
             try {
                 Image img = ImageIO.read(getClass().getClassLoader().getResource(BOARD_PATH));
-                gameWindow.gameBoardLabel = new Board(new ImageIcon(img), gameWindow);
-                gameWindow.gameBoardPanel.add(gameWindow.gameBoardLabel);
+                gameWindow.gameBoard = new Board(new ImageIcon(img), gameWindow);
+                gameWindow.gameBoardPanel.add(gameWindow.gameBoard);
             } catch (Exception ex) {
                 System.out.println(ex);
             }
@@ -196,7 +196,7 @@ public class LaunchButtonListener implements ActionListener {
             gameWindow.game = new Game(gameWindow.playersNumber, playersNames, gameWindow.playersColors, gameWindow.xPlayer, gameWindow.yPlayer);
             
             // draw the pieces
-            gameWindow.gameBoardLabel.repaint();
+            gameWindow.gameBoard.repaint();
         }
     }
 }
