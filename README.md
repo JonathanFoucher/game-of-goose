@@ -8,6 +8,7 @@ A console interface that displays the game results would have been enough for ou
 - [Overview](#overview)
 - [Table of Contents](#table-of-contents)
 - [I - Game rules](#i---game-rules)
+- [II - Application conception](#ii---application-conception)
 
 # I - Game rules
 
@@ -20,5 +21,13 @@ In my game, I've implemented special spaces that give bonuses or penalties :
 - the player advances of 1 or 2 spaces
 - the player moves back of 1 or 2 spaces
 - the player teleports to a specific space (it can be closer to the end or further)
-
  
+# II - Application conception
+
+First step was to get the game's board. I'd created the board myself to be able to customize it exactly as I wanted.
+
+<img src="src\main\resources\images\board.png" alt="Board" width="100%"/>
+
+Then I made the UML diagram (Unified Modeling Language) to prepare the main classes that I would have to use and their attributes and methods.
+
+<img src="src\main\resources\images\uml-diagram.png" alt="Game Configuration screenshot" width="100%"/>
